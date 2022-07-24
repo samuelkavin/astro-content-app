@@ -52,7 +52,8 @@ function TextFieldFormsy(props: any) {
 			value={value}
 			InputProps={{
 				style: {
-					borderRadius: '15px'
+					borderRadius: '35px',
+					backgroundColor: 'rgb(156 121 98)',
 				}
 			}}
 			error={Boolean((!props.isPristine && props.showRequired) || errorMessage)}

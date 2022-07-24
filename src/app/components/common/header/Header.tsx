@@ -13,7 +13,7 @@ const Header = () => {
 					'linear-gradient(to right bottom, rgb(230, 0, 125), rgb(231, 38, 71))',
 			}}>
 			<Container maxWidth="xl">
-				<Toolbar disableGutters sx={{ justifyContent: 'center' }}>
+				<Toolbar disableGutters sx={{ justifyContent: 'left' }}>
 					<Typography
 						variant="h6"
 						noWrap

@@ -14,6 +14,7 @@ import { getCategories, selectCategories } from '../+state/categoriesSlice';
 import Categories from './Categories';
 import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
 function ChannelsListPage() {
     const dispatch = useAppDispatch();
@@ -68,9 +69,25 @@ function ChannelsListPage() {
     }
 
     return (
-        <Container>
-            <Grid container direction="row" spacing={2}>
-                <Grid item xs={12} md={12} sx={{ mb: 5, mt: 5 }}>
+        <Container maxWidth={false} style={{ paddingLeft: 0, paddingRight: 0, marginTop: '16px' }}>
+            <Grid
+                container
+                direction="row"
+                spacing={2}
+                sx={{
+                    pr: '10rem',
+                    pl: '10rem',
+                    pb: '3rem',
+                    background:
+                        'radial-gradient(circle, rgba(118,77,30,1) 35%, rgba(91,48,17,1) 83%)',
+                }}>
+                <Grid item xs={12} md={12} textAlign="center" marginBottom="1.5rem">
+                    <Typography variant="h4" style={{ fontWeight: 600, color: '#fff' }}>
+                        Content Guide
+                    </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={12} style={{ paddingTop: '0' }}>
                     <Formsy>
                         <TextFieldFormsy
                             type="text"
@@ -78,26 +95,33 @@ function ChannelsListPage() {
                             onChange={handleSearchText}
                             value={searchText}
                             placeholder="Search Channels, TV Shows, Movies"
-                            variant="outlined"
-                        />
+                            variant="outlined"/>
                     </Formsy>
                 </Grid>
             </Grid>
 
-            <Grid container direction="row" justifyContent="center" alignItems="center">
+            <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ pr: '10rem', pl: '10rem' }}
+            >
                 <Grid item sx={{ mb: 5, mt: 5, display: 'inline-flex', overflow: 'auto' }}>
                     <Categories
                         categories={categories}
-                        handleSelectedCategory={handleSelectedCategory} />
+                        handleSelectedCategory={handleSelectedCategory}
+                    />
                 </Grid>
             </Grid>
 
-            <Grid container spacing={2} sx={{ mb: 2, pr: 1, pl: 1 }}>
+            <Grid container spacing={2} sx={{ pr: '10rem', pl: '10rem' }}>
                 <Grid
                     item
                     xs={12}
                     md={12}
-                    sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    sx={{ display: 'flex', justifyContent: 'space-between' }}
+                >
                     <Box>
                         <IconButton aria-label="delete">
                             <SwapVertRoundedIcon />
@@ -111,7 +135,7 @@ function ChannelsListPage() {
                 </Grid>
             </Grid>
 
-            <Grid container direction="row" spacing={2}>
+            <Grid container direction="row" spacing={2} sx={{ pr: '10rem', pl: '10rem' }}>
                 <CardList content={filteredData} />
             </Grid>
         </Container>
