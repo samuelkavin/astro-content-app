@@ -1,9 +1,7 @@
-import React, { Suspense } from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
-import ChannelsListPage from './app/components/content-guide/channels-list/ChannelsListPage';
+import { Suspense } from 'react';
 import { useRoutes, BrowserRouter as Routers } from 'react-router-dom';
+import ChannelsListPage from './app/components/content-guide/channels-list/ChannelsListPage';
+import Header from './app/components/common/header/Header';
 
 const Router = () => {
   let routes = useRoutes([
@@ -15,6 +13,7 @@ const Router = () => {
 function App() {
   return (
     <div className="App">
+      <Header />
       <Suspense>
         <Routers>
           <Router />

@@ -5,7 +5,6 @@ import FilterAltRoundedIcon from '@mui/icons-material/FilterAltRounded';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import SortIcon from '@mui/icons-material/Sort';
 import CardList from './CardList';
 import TextFieldFormsy from '../../common/text-field/TextField';
 import { getChannels, selectChannels } from '../+state/channelsSlice';
@@ -13,6 +12,8 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Category, Channels } from '../types';
 import { getCategories, selectCategories } from '../+state/categoriesSlice';
 import Categories from './Categories';
+import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded';
+import IconButton from '@mui/material/IconButton';
 
 function ChannelsListPage() {
     const dispatch = useAppDispatch();
@@ -98,10 +99,14 @@ function ChannelsListPage() {
                     md={12}
                     sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box>
-                        <SortIcon />
+                        <IconButton aria-label="delete">
+                            <SwapVertRoundedIcon />
+                        </IconButton>
                     </Box>
                     <Box>
-                        <FilterAltRoundedIcon />
+                        <IconButton aria-label="delete">
+                            <FilterAltRoundedIcon />
+                        </IconButton>
                     </Box>
                 </Grid>
             </Grid>

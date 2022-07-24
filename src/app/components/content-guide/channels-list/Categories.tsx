@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         cursor: 'pointer',
         color: '#fff',
         marginRight: '0.5rem',
+        textAlign: 'center',
         '&:hover': {
             backgroundColor: '#fc548e',
         },
