@@ -37,7 +37,7 @@ export default function ChannelFilter({ content, value, handleFilter }: any) {
             <ToggleButtonGroup value={value} onChange={handleFilter} sx={{ display: 'flex', flexWrap: 'wrap' }}>
                 {content.map((range: any) => {
                     return (
-                        <ToggleButton value={range.value} style={{ width: '100%' }}>
+                        <ToggleButton key={range.value} value={range.value} style={{ width: '100%' }}>
                             <span>{range.min} {range.max}</span>
                         </ToggleButton>
                     );

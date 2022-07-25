@@ -2,7 +2,7 @@ const categories = [
 	{
 		id: 1,
 		name: 'All',
-		value: '',
+		value: 'all',
 	},
 	{
 		id: 2,

@@ -1,11 +1,13 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Channels } from '../types/channel.type';
-import Grid from '@mui/material/Grid';
 import NoResultFound from './NoResultFound';
 import ChannelSchedule from './ChannelSchedule';
 
@@ -25,16 +27,28 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-function CardList({ content }: any) {
+function CardList({ content, addFavorite, removeFavourite, favourites }: any) {
     const classes = useStyles();
     return (
         <>
             {content && content.length ? (
                 content.map(({ id, imageUrl, title, stbNumber, currentSchedule }: Channels) => {
+                    const isFavorite = favourites.includes(id);
                     return (
                         <Grid key={stbNumber} item xs={6} sm={4} md={4}>
                             <Card style={{ minHeight: '7rem' }}>
                                 <CardContent className={classes.content}>
+                                    <div className="row text-end">
+                                        {isFavorite ? (
+                                            <span>
+                                                <FavoriteIcon onClick={() => removeFavourite(id)} />
+                                            </span>
+                                        ) : (
+                                            <span onClick={() => addFavorite(id)}>
+                                                <FavoriteBorderIcon />
+                                            </span>
+                                        )}
+                                    </div>
                                     <Link to={`channel/${id}`} className={classes.link}>
                                         <Grid container direction="row" spacing={2}>
                                             <Grid item xs={4} md={4}>
