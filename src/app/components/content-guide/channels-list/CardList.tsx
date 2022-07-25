@@ -10,6 +10,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Channels } from '../types/channel.type';
 import NoResultFound from './NoResultFound';
 import ChannelSchedule from './ChannelSchedule';
+import Box from '@mui/material/Box';
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {
@@ -38,7 +39,7 @@ function CardList({ content, addFavorite, removeFavourite, favourites }: any) {
                         <Grid key={stbNumber} item xs={6} sm={4} md={4}>
                             <Card style={{ minHeight: '7rem' }}>
                                 <CardContent className={classes.content}>
-                                    <div className="row text-end">
+                                    <Box sx={{ display: 'flex', p: '0.5rem', justifyContent: 'flex-end', cursor: 'pointer'}}>
                                         {isFavorite ? (
                                             <span>
                                                 <FavoriteIcon onClick={() => removeFavourite(id)} />
@@ -48,7 +49,7 @@ function CardList({ content, addFavorite, removeFavourite, favourites }: any) {
                                                 <FavoriteBorderIcon />
                                             </span>
                                         )}
-                                    </div>
+                                    </Box>
                                     <Link to={`channel/${id}`} className={classes.link}>
                                         <Grid container direction="row" spacing={2}>
                                             <Grid item xs={4} md={4}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { filter } from 'lodash';
 import Formsy from 'formsy-react';
 import Container from '@mui/material/Container';
@@ -19,16 +19,16 @@ import { getRange, selectRange } from '../+state/rangeSlice';
 
 function ChannelsListPage() {
 	const dispatch = useAppDispatch();
-	const channels: Channels[] = useAppSelector(selectChannels);
 	const categories: Category[] = useAppSelector(selectCategories);
+	const channels: Channels[] = useAppSelector(selectChannels);
 	const range: Range[] = useAppSelector(selectRange);
 
-	const [filteredData, setFilteredData] = useState([]);
-	const [searchText, setSearchText] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('all');
-	const [sortable, setSortable] = useState(true);
 	const [filterNumbers, setFilterNumbers]: any = useState([]);
+	const [filteredData, setFilteredData] = useState([]);
 	const [favourites, setFavourites] = useState([]);
+	const [searchText, setSearchText] = useState('');
+	const [sortable, setSortable] = useState(true);
 
 	useEffect(() => {
 		dispatch(getChannels());
@@ -37,7 +37,7 @@ function ChannelsListPage() {
 	}, [dispatch]);
 
 	useEffect(() => {
-		function getFilteredArray(): any {
+		function filteredByInputCategory(): any {
 			if (searchText.length === 0 && selectedCategory === 'all') {
 				return channels;
 			}
@@ -58,12 +58,12 @@ function ChannelsListPage() {
 		}
 
 		if (channels) {
-			setFilteredData(getFilteredArray());
+			setFilteredData(filteredByInputCategory());
 		}
 	}, [channels, searchText, selectedCategory]);
 
 	useEffect(() => {
-		function getNumberFiltered(): any {
+		function filteredByChannelNum(): any {
 			if (filterNumbers.length === 0) {
 				return channels;
 			}
@@ -74,7 +74,7 @@ function ChannelsListPage() {
 		}
 
 		if (channels) {
-			setFilteredData(getNumberFiltered());
+			setFilteredData(filteredByChannelNum());
 		}
 	}, [channels, filterNumbers]);
 
@@ -85,50 +85,62 @@ function ChannelsListPage() {
 		if (channelFavorites) {
 			setFavourites(channelFavorites);
 		}
-	}, [dispatch]);
+		console.log('channelFavorites', channelFavorites);
+	}, []);
 
 	const handleSearchText = (event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
 		setSelectedCategory('all');
 		setSearchText(event.target.value);
-	}
+	};
 
 	const handleSelectedCategory = (event: React.MouseEvent<HTMLDivElement>, category: string) => {
 		event.preventDefault();
 		setSelectedCategory(category.toLowerCase());
-	}
+	};
 
 	const handleSort = () => {
 		setSortable(!sortable);
+
 		const sortedData = [...filteredData].sort((a: any, b: any) => {
 			return sortable ? (a.title > b.title ? 1 : -1) : a.title > b.title ? -1 : 1;
 		});
 		setFilteredData(sortedData);
-	}
+	};
 
 	const saveToLocalStorage = (items: any) => {
 		localStorage.setItem('favorite-channels', JSON.stringify(items));
 	};
 
-	const handleAddFavourite = (channelId: any) => {
-		const newFavouriteList: any = [...favourites, channelId];
-		setFavourites(newFavouriteList);
-		saveToLocalStorage(newFavouriteList);
-	};
+	const handleAddFavourite = useCallback(
+		(channelId: any) => {
+			const newFavouriteList: any = [...favourites, channelId];
+			setFavourites(newFavouriteList);
+			saveToLocalStorage(newFavouriteList);
+		},
+		[favourites],
+	);
 
-	const handleRemoveFavourite = (channelId: any) => {
-		const newFavouriteList = favourites.filter(id => id !== channelId);
+	const handleRemoveFavourite = useCallback(
+		(channelId: any) => {
+			const newFavouriteList = favourites.filter(id => id !== channelId);
 
-		setFavourites(newFavouriteList);
-		saveToLocalStorage(newFavouriteList);
-	};
+			setFavourites(newFavouriteList);
+			saveToLocalStorage(newFavouriteList);
+		},
+		[favourites],
+	);
 
-	const handleFilterNumbers = (
-		event: React.MouseEvent<HTMLElement>,
-		channelNumbers: string[],
-	) => {
-		setFilterNumbers(channelNumbers);
-	};
+	const handleFilterNum = useCallback(
+		(event: React.MouseEvent<HTMLElement>, channelNumbers: string[]) => {
+			setFilterNumbers(channelNumbers);
+		},
+		[],
+	);
+
+	const handleResetFilterNum = () => {
+		setFilterNumbers([]);
+	}
 
 	return (
 		<Container maxWidth={false} style={{ paddingLeft: 0, paddingRight: 0, marginTop: '16px' }}>
@@ -179,16 +191,14 @@ function ChannelsListPage() {
 				sx={{
 					pr: { xs: '1rem', sm: '2rem', md: '5rem' },
 					pl: { xs: '1rem', sm: '2rem', md: '5rem' },
-				}}
-			>
+				}}>
 				<Grid
 					item
 					xs={12}
 					md={12}
-					sx={{ display: 'flex', justifyContent: 'space-between' }}
-				>
+					sx={{ display: 'flex', justifyContent: 'space-between' }}>
 					<Box>
-						<IconButton aria-label="sort" onClick={handleSort}>
+						<IconButton onClick={handleSort}>
 							<SwapVertRoundedIcon />
 						</IconButton>
 					</Box>
@@ -196,7 +206,8 @@ function ChannelsListPage() {
 						<ChannelFilter
 							content={range}
 							value={filterNumbers}
-							handleFilter={handleFilterNumbers}
+							handleReset={handleResetFilterNum}
+							handleFilter={handleFilterNum}
 						/>
 					</Box>
 				</Grid>

@@ -7,6 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import FilterAltRoundedIcon from '@mui/icons-material/FilterAltRounded';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 const useStyles = makeStyles((theme: Theme) => ({
     title: {
@@ -18,9 +20,26 @@ const useStyles = makeStyles((theme: Theme) => ({
             color: `${theme.palette.secondary.main}!important`,
         },
     },
+    toggle: {
+        display: 'flex!important',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        width: '90%',
+        margin: '0 auto 3rem',
+    },
+    buttons: {
+        flex: '0 0 33.333333%;%',
+        minWidth: '120px',
+        marginBottom: '0.8rem!important',
+        border: `1px solid ${theme.palette.secondary.main}!important`,
+        borderRadius: '35px!important',
+    },
+    actionsButtons: {
+        minWidth: '7rem!important',
+    },
 }));
 
-export default function ChannelFilter({ content, value, handleFilter }: any) {
+export default function ChannelFilter({ content, value, handleFilter, handleReset }: any) {
     const [state, setState] = useState(false);
     const classes = useStyles();
 
@@ -28,21 +47,51 @@ export default function ChannelFilter({ content, value, handleFilter }: any) {
         <Box sx={{ width: 350, padding: '1rem', overflow: 'auto' }} role="presentation">
             <Typography
                 className={classes.title}
-                style={{ fontWeight: 600, marginBottom: '1.3rem' }}
+                style={{
+                    fontWeight: 600,
+                    marginBottom: '1.3rem',
+                    fontSize: '16px',
+                    marginLeft: '1rem',
+                }}
                 variant="h5"
                 gutterBottom
                 component="div">
                 Channel Number
             </Typography>
-            <ToggleButtonGroup value={value} onChange={handleFilter} sx={{ display: 'flex', flexWrap: 'wrap' }}>
+            <ToggleButtonGroup value={value} className={classes.toggle} onChange={handleFilter}>
                 {content.map((range: any) => {
                     return (
-                        <ToggleButton key={range.value} value={range.value} style={{ width: '100%' }}>
-                            <span>{range.min} {range.max}</span>
+                        <ToggleButton
+                            key={range.value}
+                            className={classes.buttons}
+                            value={range.value}>
+                            <span>
+                                {range.min} {range.max}
+                            </span>
                         </ToggleButton>
                     );
                 })}
             </ToggleButtonGroup>
+            <Grid container spacing={2}>
+                <Grid item xs={12} md={12} sx={{ display: 'flex', justifyContent: 'space-around' }}>
+                    <Box>
+                        <Button
+                            className={classes.actionsButtons}
+                            onClick={() => {setState(false); handleReset()}}
+                            variant="outlined">
+                            Reset
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button
+                            className={classes.actionsButtons}
+                            onClick={() => setState(false)}
+                            variant="contained">
+                            Apply
+                        </Button>
+                    </Box>
+                </Grid>
+            </Grid>
         </Box>
     );
 
