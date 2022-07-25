@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function CardList({ content }: any) {
     const classes = useStyles();
-    console.log('contentcontent', content)
     return (
         <>
             {content && content.length ? (

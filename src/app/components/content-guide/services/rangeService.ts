@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
-function getCategories(): any {
-	const baseUrl = `http://localhost:3001/categories`;
+function getRange(): any {
+	const baseUrl = `http://localhost:3001/range`;
 
 	return new Promise((resolve, reject) => {
 		axios.get(baseUrl).then((response: AxiosResponse) => {
@@ -14,8 +14,8 @@ function getCategories(): any {
 	});
 }
 
-const CategoriesService = {
-	getCategories,
+const RangeService = {
+	getRange,
 };
 
-export default CategoriesService;
+export default RangeService;

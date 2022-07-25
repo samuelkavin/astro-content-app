@@ -3,6 +3,7 @@ import counterReducer from '../features/counter/counterSlice';
 import categoriesSlice from './components/content-guide/+state/categoriesSlice';
 import channelSlice from './components/content-guide/+state/channelSlice';
 import channelsSlice from './components/content-guide/+state/channelsSlice';
+import rangeSlice from './components/content-guide/+state/rangeSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
 		channels: channelsSlice,
 		channel: channelSlice,
 		categories: categoriesSlice,
+		range: rangeSlice,
 	},
 });
 
