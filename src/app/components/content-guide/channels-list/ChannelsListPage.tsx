@@ -154,8 +154,7 @@ function ChannelsListPage() {
 					pb: '3rem',
 					background:
 						'radial-gradient(circle, rgba(118,77,30,1) 35%, rgba(91,48,17,1) 83%)',
-				}}
-			>
+				}}>
 				<Grid item xs={12} md={12} textAlign="center" marginBottom="1.5rem">
 					<Typography variant="h4" style={{ fontWeight: 600, color: '#fff' }}>
 						Content Guide
@@ -220,8 +219,7 @@ function ChannelsListPage() {
 				sx={{
 					pr: { xs: '1rem', sm: '2rem', md: '5rem' },
 					pl: { xs: '1rem', sm: '2rem', md: '5rem' },
-				}}
-			>
+				}}>
 				<CardList
 					content={filteredData}
 					favourites={favourites}
