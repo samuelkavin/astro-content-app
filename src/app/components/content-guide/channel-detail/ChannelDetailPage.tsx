@@ -25,11 +25,10 @@ function ChannelDetailPage() {
                 sx={{
                     maxWidth: '752px',
                     width: '100%',
-                    margin: '0 auto',
-                    padding: '0 1rem',
+                    margin: '3rem auto',
                     position: 'relative',
                 }}>
-                <Grid container direction="row" spacing={2} sx={{ mb: 6, pl: 0 }}>
+                <Grid container direction="row" spacing={2} sx={{mb: '2.5rem'}}>
                     <Grid item xs={2} md={2}>
                         <img src={imageUrl} alt={title} height="100%" width="100%" />
                     </Grid>
@@ -58,13 +57,15 @@ function ChannelDetailPage() {
                     </Grid>
                 </Grid>
 
-                <Grid container direction="row" spacing={2}>
-                    <Typography
-                        variant="body1"
-                        align='left'
-                        sx={{ mb: 6, fontSize: '1rem' }}>
-                        {description}
-                    </Typography>
+                <Grid container direction="row" spacing={2} sx={{mb: '3rem'}}>
+                    <Grid item xs={12} md={12}>
+                        <Typography
+                            variant="body1"
+                            align='left'
+                            sx={{ fontSize: '1rem' }}>
+                            {description}
+                        </Typography>
+                    </Grid>
                 </Grid>
 
                 <Grid container direction="row" spacing={2}>

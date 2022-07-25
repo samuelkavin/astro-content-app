@@ -5,7 +5,7 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 
 function NoResultFound() {
     return (
-        <Grid container direction="row" justifyContent="center" alignItems="center">
+        <Grid container direction="row" justifyContent="center" textAlign='center'>
             <Grid item sx={{ mb: 5, mt: 5 }}>
                 <SentimentVeryDissatisfiedIcon style={{ fontSize: '4rem' }} />
                 <Box>

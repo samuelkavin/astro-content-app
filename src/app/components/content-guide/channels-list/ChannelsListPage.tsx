@@ -75,8 +75,8 @@ function ChannelsListPage() {
                 direction="row"
                 spacing={2}
                 sx={{
-                    pr: '10rem',
-                    pl: '10rem',
+                    pr: { xs: '1rem', sm: '2rem', md: '15rem' },
+                    pl: { xs: '1rem', sm: '2rem', md: '15rem' },
                     pb: '3rem',
                     background:
                         'radial-gradient(circle, rgba(118,77,30,1) 35%, rgba(91,48,17,1) 83%)',
@@ -105,23 +105,29 @@ function ChannelsListPage() {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ pr: '10rem', pl: '10rem' }}
-            >
+                sx={{
+                    pr: { md: '10rem' },
+                    pl: { md: '10rem' },
+                }}>
                 <Grid item sx={{ mb: 5, mt: 5, display: 'inline-flex', overflow: 'auto' }}>
                     <Categories
                         categories={categories}
-                        handleSelectedCategory={handleSelectedCategory}
-                    />
+                        handleSelectedCategory={handleSelectedCategory}/>
                 </Grid>
             </Grid>
 
-            <Grid container spacing={2} sx={{ pr: '10rem', pl: '10rem' }}>
+            <Grid
+                container
+                spacing={2}
+                sx={{
+                    pr: { xs: '1rem', sm: '2rem', md: '10rem' },
+                    pl: { xs: '1rem', sm: '2rem', md: '10rem' },
+                }}>
                 <Grid
                     item
                     xs={12}
                     md={12}
-                    sx={{ display: 'flex', justifyContent: 'space-between' }}
-                >
+                    sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box>
                         <IconButton aria-label="delete">
                             <SwapVertRoundedIcon />
@@ -135,7 +141,10 @@ function ChannelsListPage() {
                 </Grid>
             </Grid>
 
-            <Grid container direction="row" spacing={2} sx={{ pr: '10rem', pl: '10rem' }}>
+            <Grid container direction="row" spacing={2} sx={{
+                pr: { xs: '1rem', sm: '2rem', md: '10rem' },
+                pl: { xs: '1rem', sm: '2rem', md: '10rem' },
+            }}>
                 <CardList content={filteredData} />
             </Grid>
         </Container>
