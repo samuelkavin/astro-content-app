@@ -12,14 +12,12 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <CssBaseline />
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

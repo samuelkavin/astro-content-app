@@ -10,11 +10,11 @@ export const getRange: any = createAsyncThunk('channels/range', async () => {
 const rangeAdapter: any = createEntityAdapter({});
 
 export const { selectAll: selectRange } = rangeAdapter.getSelectors(
-	(state: RootState) => state.range,
+	(state: RootState) => state.content.range,
 );
 
 const rangeSlice = createSlice({
-	name: 'range',
+	name: 'channel/range',
 	initialState: rangeAdapter.getInitialState({}),
 	reducers: {},
 	extraReducers: {

@@ -1,15 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import categoriesSlice from './components/content-guide/+state/categoriesSlice';
-import channelSlice from './components/content-guide/+state/channelSlice';
-import channelsSlice from './components/content-guide/+state/channelsSlice';
-import rangeSlice from './components/content-guide/+state/rangeSlice';
+import rootReducer from './components/content-guide/+state';
 
 export const store = configureStore({
 	reducer: {
-		channels: channelsSlice,
-		channel: channelSlice,
-		categories: categoriesSlice,
-		range: rangeSlice,
+		content: rootReducer,
 	},
 });
 

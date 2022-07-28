@@ -1,10 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 
+export const BASE_URL: string = `https://contenthub-api.eco.astro.com.my/channel`;
+
 function getAll() {
-	const baseUrl = `https://contenthub-api.eco.astro.com.my/channel/all.json`;
+	const path = `${BASE_URL}/all.json`;
 
 	return new Promise((resolve, reject): any => {
-		axios.get(baseUrl).then((response: AxiosResponse) => {
+		axios.get(path).then((response: AxiosResponse) => {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {
@@ -15,10 +17,10 @@ function getAll() {
 }
 
 function getById(id: number): any {
-	const baseUrl = `https://contenthub-api.eco.astro.com.my/channel/${id}.json`;
+	const path = `${BASE_URL}/${id}.json`;
 
 	return new Promise((resolve, reject) => {
-		axios.get(baseUrl).then((response: AxiosResponse) => {
+		axios.get(path).then((response: AxiosResponse) => {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {

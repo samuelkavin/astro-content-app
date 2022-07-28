@@ -10,11 +10,11 @@ export const getCategories: any = createAsyncThunk('channels/categories', async 
 const categoriesAdapter: any = createEntityAdapter({});
 
 export const { selectAll: selectCategories } = categoriesAdapter.getSelectors(
-	(state: RootState) => state.categories,
+	(state: RootState) => state.content.categories,
 );
 
 const categoriesSlice = createSlice({
-	name: 'categories',
+	name: 'channel/categories',
 	initialState: categoriesAdapter.getInitialState({}),
 	reducers: {},
 	extraReducers: {

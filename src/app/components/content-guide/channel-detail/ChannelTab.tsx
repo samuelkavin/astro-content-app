@@ -14,8 +14,8 @@ function TabPanel(props: TabPanelProps) {
         <div
             role="tabpanel"
             hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
+            id={`channel-tabpanel-${index}`}
+            aria-labelledby={`channel-tab-${index}`}
             {...other}>
             {value === index && (
                 <Box sx={{ p: 3 }}>
@@ -28,8 +28,8 @@ function TabPanel(props: TabPanelProps) {
 
 function a11yProps(index: number) {
     return {
-        id: `simple-tab-${index}`,
-        "aria-controls": `simple-tabpanel-${index}`
+        id: `channel-tab-${index}`,
+        "aria-controls": `channel-tabpanel-${index}`
     };
 }
 
@@ -44,6 +44,7 @@ function BasicTabs({ schedule }: any) {
         <Box sx={{ width: "100%", marginBottom: '1.5rem' }}>
             <Tabs
                 value={value}
+                TabIndicatorProps={{ style: { fontWeight: 600 } }}
                 onChange={handleChange}>
                 {Object.keys(schedule).map((date: any, index: number) => {
                     const day = isToday(date) ? 'Today' : dayOfWeek(date);
@@ -57,7 +58,7 @@ function BasicTabs({ schedule }: any) {
                         <TabPanel value={value} index={index}>
                             {events.map(({ title, datetime, eventId }: any) => {
                                 return (
-                                    <Grid key={eventId} container direction="row" spacing={2} sx={{ marginBottom: '1rem' }}>
+                                    <Grid key={eventId} container direction="row" spacing={2}>
                                         <Grid item xs={2} md={2} textAlign='left'>
                                             <Typography
                                                 variant="subtitle2"

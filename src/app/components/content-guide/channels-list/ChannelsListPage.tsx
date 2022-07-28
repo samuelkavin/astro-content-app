@@ -11,16 +11,16 @@ import CardList from './CardList';
 import TextFieldFormsy from '../../common/text-field/TextField';
 import Categories from './Categories';
 import ChannelFilter from './ChannelFilter';
-import { getChannels, selectChannels } from '../+state/channelsSlice';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Category, Channels, Range } from '../types';
 import { getCategories, selectCategories } from '../+state/categoriesSlice';
 import { getRange, selectRange } from '../+state/rangeSlice';
+import { getChannels, selectAllChannels } from '../+state/channelListSlice';
 
 function ChannelsListPage() {
 	const dispatch = useAppDispatch();
 	const categories: Category[] = useAppSelector(selectCategories);
-	const channels: Channels[] = useAppSelector(selectChannels);
+	const channels: Channels[] = useAppSelector(selectAllChannels);
 	const range: Range[] = useAppSelector(selectRange);
 
 	const [selectedCategory, setSelectedCategory] = useState('all');
@@ -85,7 +85,6 @@ function ChannelsListPage() {
 		if (channelFavorites) {
 			setFavourites(channelFavorites);
 		}
-		console.log('channelFavorites', channelFavorites);
 	}, []);
 
 	const handleSearchText = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,10 +1,14 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import categoriesSlice from './categoriesSlice';
-import channelsSlice from './channelsSlice';
+import list from './channelListSlice';
+import details from './channelDetailSlice';
+import categories from './categoriesSlice';
+import range from './rangeSlice';
 
 const rootReducer = combineReducers({
-	categoriesSlice,
-	channelsSlice,
+	list,
+	details,
+	categories,
+	range,
 });
 
 export default rootReducer;
