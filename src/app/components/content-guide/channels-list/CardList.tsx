@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Channels } from '../types/channel.type';
-import NoResultFound from './NoResultFound';
+import NoResultFound from '../../common/no-result-found/NoResultFound';
 import ChannelSchedule from './ChannelSchedule';
 import Box from '@mui/material/Box';
 
