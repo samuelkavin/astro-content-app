@@ -11,30 +11,19 @@ import CardList from './CardList';
 import TextFieldFormsy from '../../common/text-field/TextField';
 import Categories from './Categories';
 import ChannelFilter from './ChannelFilter';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { Category, Channels, Range } from '../types';
-import { getCategories, selectCategories } from '../+state/categoriesSlice';
-import { getRange, selectRange } from '../+state/rangeSlice';
-import { getChannels, selectAllChannels } from '../+state/channelListSlice';
+import useChannelDispatch from '../hooks/useChannelDispatch';
+import useFavorite from '../hooks/useFavorite';
 
 function ChannelsListPage() {
-	const dispatch = useAppDispatch();
-	const categories: Category[] = useAppSelector(selectCategories);
-	const channels: Channels[] = useAppSelector(selectAllChannels);
-	const range: Range[] = useAppSelector(selectRange);
+
+	const { categories, channels, range } = useChannelDispatch();
+	const { handleAddFavourite, handleRemoveFavourite, favourites } = useFavorite();
 
 	const [selectedCategory, setSelectedCategory] = useState('all');
 	const [filterNumbers, setFilterNumbers]: any = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
-	const [favourites, setFavourites] = useState([]);
 	const [searchText, setSearchText] = useState('');
 	const [sortable, setSortable] = useState(true);
-
-	useEffect(() => {
-		dispatch(getChannels());
-		dispatch(getCategories());
-		dispatch(getRange());
-	}, [dispatch]);
 
 	useEffect(() => {
 		function filteredByInputCategory(): any {
@@ -78,15 +67,6 @@ function ChannelsListPage() {
 		}
 	}, [channels, filterNumbers]);
 
-	useEffect(() => {
-		// @ts-ignore
-		const channelFavorites = JSON.parse(localStorage.getItem('favorite-channels'));
-
-		if (channelFavorites) {
-			setFavourites(channelFavorites);
-		}
-	}, []);
-
 	const handleSearchText = (event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
 		setSelectedCategory('all');
@@ -106,29 +86,6 @@ function ChannelsListPage() {
 		});
 		setFilteredData(sortedData);
 	};
-
-	const saveToLocalStorage = (items: any) => {
-		localStorage.setItem('favorite-channels', JSON.stringify(items));
-	};
-
-	const handleAddFavourite = useCallback(
-		(channelId: any) => {
-			const newFavouriteList: any = [...favourites, channelId];
-			setFavourites(newFavouriteList);
-			saveToLocalStorage(newFavouriteList);
-		},
-		[favourites],
-	);
-
-	const handleRemoveFavourite = useCallback(
-		(channelId: any) => {
-			const newFavouriteList = favourites.filter(id => id !== channelId);
-
-			setFavourites(newFavouriteList);
-			saveToLocalStorage(newFavouriteList);
-		},
-		[favourites],
-	);
 
 	const handleFilterNum = useCallback(
 		(event: React.MouseEvent<HTMLElement>, channelNumbers: string[]) => {

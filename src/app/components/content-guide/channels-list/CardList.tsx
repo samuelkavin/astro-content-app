@@ -42,10 +42,10 @@ function CardList({ content, addFavorite, removeFavourite, favourites }: any) {
                                     <Box sx={{ display: 'flex', p: '0.5rem', justifyContent: 'flex-end', cursor: 'pointer'}}>
                                         {isFavorite ? (
                                             <span>
-                                                <FavoriteIcon onClick={() => removeFavourite(id)} />
+                                                <FavoriteIcon color="primary" onClick={() => removeFavourite(id)} />
                                             </span>
                                         ) : (
-                                            <span onClick={() => addFavorite(id)}>
+                                            <span color="primary" onClick={() => addFavorite(id)}>
                                                 <FavoriteBorderIcon />
                                             </span>
                                         )}
