@@ -9,7 +9,7 @@ export interface Channels {
 	title?: string;
 	description?: string;
 	isHd?: boolean;
-	stbNumber?: number;
+	stbNumber?: string;
 	language?: string;
 	category?: string;
 	originalImage?: string;

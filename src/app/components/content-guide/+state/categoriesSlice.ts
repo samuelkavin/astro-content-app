@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import { RootState } from '../../../store';
 import CategoriesService from '../services/categoriesService';
+import { Category } from '../types';
 
 export const getCategories: any = createAsyncThunk('channels/categories', async () => {
-	const response: any = await CategoriesService.getCategories();
+	const response: Category[] = await CategoriesService.getCategories();
 	return response;
 });
 

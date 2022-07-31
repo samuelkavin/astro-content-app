@@ -13,9 +13,9 @@ import Categories from './Categories';
 import ChannelFilter from './ChannelFilter';
 import useChannelDispatch from '../hooks/useChannelDispatch';
 import useFavorite from '../hooks/useFavorite';
+import { Channels } from '../types';
 
 function ChannelsListPage() {
-
 	const { categories, channels, range } = useChannelDispatch();
 	const { handleAddFavourite, handleRemoveFavourite, favourites } = useFavorite();
 
@@ -26,30 +26,42 @@ function ChannelsListPage() {
 	const [sortable, setSortable] = useState(true);
 
 	useEffect(() => {
-		function filteredByInputCategory(): any {
-			if (searchText.length === 0 && selectedCategory === 'all') {
+		function filteredByInput(): any {
+			if (searchText.length === 0) {
 				return channels;
 			}
 
-			return filter(channels, (item: any) => {
-				if (
-					selectedCategory !== 'all' &&
-					item.language.toLowerCase() !== selectedCategory
-				) {
-					return false;
-				}
+			return filter(channels, ({ title, stbNumber }: Channels) => {
 				return (
-					item.title.toLowerCase().includes(searchText.toLowerCase()) ||
-					item.stbNumber.includes(searchText) ||
-					item.language.toLowerCase().includes(selectedCategory)
+					title?.toLowerCase().includes(searchText.toLowerCase()) ||
+					stbNumber?.includes(searchText)
 				);
 			});
 		}
 
 		if (channels) {
-			setFilteredData(filteredByInputCategory());
+			setFilteredData(filteredByInput());
 		}
-	}, [channels, searchText, selectedCategory]);
+	}, [channels, searchText]);
+
+	useEffect(() => {
+		function filteredByCategory(): any {
+			if (selectedCategory === 'all') {
+				return channels;
+			}
+
+			return filter(channels, ({ language }: Channels) => {
+				if (selectedCategory !== 'all' && language?.toLowerCase() !== selectedCategory) {
+					return false;
+				}
+				return language?.toLowerCase().includes(selectedCategory);
+			});
+		}
+
+		if (channels) {
+			setFilteredData(filteredByCategory());
+		}
+	}, [channels, selectedCategory]);
 
 	useEffect(() => {
 		function filteredByChannelNum(): any {
@@ -67,16 +79,19 @@ function ChannelsListPage() {
 		}
 	}, [channels, filterNumbers]);
 
-	const handleSearchText = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleSearchText = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
 		setSelectedCategory('all');
 		setSearchText(event.target.value);
-	};
+	}, []);
 
-	const handleSelectedCategory = (event: React.MouseEvent<HTMLDivElement>, category: string) => {
-		event.preventDefault();
-		setSelectedCategory(category.toLowerCase());
-	};
+	const handleSelectedCategory = useCallback(
+		(event: React.MouseEvent<HTMLDivElement>, category: string) => {
+			event.preventDefault();
+			setSelectedCategory(category.toLowerCase());
+		},
+		[],
+	);
 
 	const handleSort = () => {
 		setSortable(!sortable);
@@ -96,7 +111,7 @@ function ChannelsListPage() {
 
 	const handleResetFilterNum = () => {
 		setFilterNumbers([]);
-	}
+	};
 
 	return (
 		<Container maxWidth={false} style={{ paddingLeft: 0, paddingRight: 0, marginTop: '16px' }}>
