@@ -8,7 +8,7 @@ function getRange(): any {
 			if (response.status === 200) {
 				resolve(response.data);
 			} else {
-				reject('Something went wrong!');
+				reject(new Error('Something went wrong!'));
 			}
 		});
 	});

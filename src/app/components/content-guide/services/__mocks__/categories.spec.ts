@@ -18,5 +18,7 @@ describe('categoriesService', () => {
 
 			expect(mockedAxios.get).toHaveBeenCalledWith(baseUrl);
 		});
+
+		it.todo('should throw error if categories api failed');
 	});
 });

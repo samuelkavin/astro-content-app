@@ -5,7 +5,6 @@ import RangeService from '../rangeService';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-
 describe('RangeService', () => {
 	describe('getRange', () => {
 		it('should fetch list of channel ranges', () => {
@@ -19,5 +18,7 @@ describe('RangeService', () => {
 
 			expect(mockedAxios.get).toHaveBeenCalledWith(baseUrl);
 		});
+
+		it.todo('should throw error if channel range api failed');
 	});
 });
